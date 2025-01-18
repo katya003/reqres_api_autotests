@@ -11,6 +11,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.*;
+
 @Owner("Ekaterina")
 @Feature("API Registration")
 @Tag("API")
@@ -21,28 +24,40 @@ public class RegisterTests extends TestBase {
 
     @Test
     @DisplayName("Проверка регистрации с заполнением email и пароля")
-    @Story("Позитивный тест")
+    @Story("Тестирование регистрации с валидным email и паролем")
     public void successfulRegTest() {
         request.setEmail("eve.holt@reqres.in");
         request.setPassword("pistol");
         CreateUserResponseModel response = registerApi.postRequest(request);
-        registerApi.checkEmailAndPassword(response);
+
+        step("Проверка создания пользователя по id, токену", () -> {
+            assertEquals(4, response.getId());
+            assertNotNull(response.getToken(), "Токен должен быть не null");
+            assertFalse(response.getToken().isEmpty(), "Токен не должен быть пустой строкой");
+            assertEquals(17, response.getToken().length(), "Длина токена должна быть 17 символов");
+        });
     }
 
     @Test
     @DisplayName("Проверка регистрации с невалидным email")
-    @Story("Негативный тест")
+    @Story("Тестирование регистрации с невалидным email")
     public void unSuccessfulRegTest() {
         request.setEmail("sydney@fife");
         CreateUserResponseModel response = registerApi.negativeEmailPostReques(request);
-        registerApi.checkNegativeEmail(response);
+
+        step("Проверка ошибки при создании пользователя", () -> {
+            assertEquals("Missing password", response.getError());
+        });
     }
 
     @Test
     @DisplayName("Проверка получения id пользователя")
-    @Story("Позитивный тест")
+    @Story("Тестирование валидности id пользователя")
     void getUserByIdTest() {
         GetUserResponseModel response = registerApi.getIdUser();
-        registerApi.checkIdUser(response);
+
+        step("Проверка id пользователя", () -> {
+            assertEquals(String.valueOf(4), response.getData().getId(), "ID пользователя должен совпадать");
+        });
     }
 }

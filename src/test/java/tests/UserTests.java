@@ -11,6 +11,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static io.qameta.allure.Allure.step;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @Owner("Ekaterina")
 @Feature("API User")
 @Tag("API")
@@ -21,35 +24,46 @@ public class UserTests extends TestBase {
 
     @Test
     @DisplayName("Создание пользователя")
-    @Story("Позитивный тест")
+    @Story("Тестирование создания пользователя с именем и работой")
     public void createUserNameJobTest() {
         request.setName("morpheus");
         request.setJob("leader");
         CreateUserNameJobResponseModel response = userApi.postNameJobRequest(request);
-        userApi.checkUserNameAndJob(response);
+        //userApi.checkUserNameAndJob(response);
+
+        step("Проверка создания пользователя с именем и работой", () -> {
+            assertEquals("morpheus", response.getName());
+            assertEquals("leader", response.getJob());
+        });
     }
 
     @Test
     @DisplayName("Редактирование работы пользователя")
-    @Story("Позитивный тест")
+    @Story("Тестирование изменения работы у пользователя")
     public void updateSuccessfulJobTest() {
         request.setJob("zion resident");
         UpdateSuccessfulResponseModel response = userApi.patchJobRequest(request);
-        userApi.updateJob(response);
+
+        step("Проверка изменения работы у пользователя", () -> {
+            assertEquals("zion resident", response.getJob());
+        });
     }
 
     @Test
     @DisplayName("Редактирование имени пользователя")
-    @Story("Позитивный тест")
+    @Story("Тестирование изменения имени у пользователя")
     void updateSuccessfulNameTest() {
         request.setName("morpheus");
         UpdateSuccessfulResponseModel response = userApi.patchNameRequest(request);
-        userApi.updateName(response);
+
+        step("Проверка изменения имени у пользователя", () -> {
+            assertEquals("morpheus", response.getName());
+        });
     }
 
     @Test
     @DisplayName("Удаление пользователя")
-    @Story("Позитивный тест")
+    @Story("Тестирование удаления пользователя")
     void deleteUserTest() {
         userApi.deleteData();
     }

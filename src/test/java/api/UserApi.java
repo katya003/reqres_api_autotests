@@ -1,11 +1,13 @@
 package api;
 
-import models.*;
+import models.CreateUserNameJobModel;
+import models.CreateUserNameJobResponseModel;
+import models.UpdateSuccessfulResponseModel;
 
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static specs.CreateUserSpec.*;
+import static specs.UserSpec.createRequestSpec;
+import static specs.UserSpec.defaultLoggingSpec;
 
 public class UserApi {
 
@@ -16,16 +18,9 @@ public class UserApi {
                         .when()
                         .post("/user")
                         .then()
-                        .spec(createNameJobResponseSpec201)
-                        .extract().as(CreateUserNameJobResponseModel.class));
+                        .statusCode(201))
+                .extract().as(CreateUserNameJobResponseModel.class);
         return response;
-    }
-
-    public void checkUserNameAndJob(CreateUserNameJobResponseModel response) {
-        step("Проверка создания пользователя с именем и работой", () -> {
-            assertEquals("morpheus", response.getName());
-            assertEquals("leader", response.getJob());
-        });
     }
 
     public UpdateSuccessfulResponseModel patchJobRequest(CreateUserNameJobModel request) {
@@ -35,15 +30,9 @@ public class UserApi {
                         .when()
                         .patch("/users/2")
                         .then()
-                        .spec(successfulUserResponseSpec)
+                        .spec(defaultLoggingSpec)
                         .extract().as(UpdateSuccessfulResponseModel.class));
         return response;
-    }
-
-    public void updateJob(UpdateSuccessfulResponseModel response) {
-        step("Проверка изменения работы у пользователя", () -> {
-            assertEquals("zion resident", response.getJob());
-        });
     }
 
     public UpdateSuccessfulResponseModel patchNameRequest(CreateUserNameJobModel request) {
@@ -53,24 +42,20 @@ public class UserApi {
                         .when()
                         .patch("/users/2")
                         .then()
-                        .spec(successfulUserResponseSpec)
+                        .spec(defaultLoggingSpec)
                         .extract().as(UpdateSuccessfulResponseModel.class));
         return response;
     }
 
-    public void updateName(UpdateSuccessfulResponseModel response) {
-        step("Проверка изменения имени у пользователя", () -> {
-            assertEquals("morpheus", response.getName());
+    public void deleteData() {
+        step("Удалить данные", () -> {
+            given(createRequestSpec)
+                    .delete("/users/2")
+                    .then()
+                    .statusCode(204);
         });
     }
-
-    public void deleteData() {
-        step("Удалить данные", () ->
-                given(createRequestSpec)
-                        .delete("/users/2")
-                        .then()
-                        .statusCode(204));
-    }
 }
+
 
 

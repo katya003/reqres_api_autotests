@@ -6,9 +6,8 @@ import models.GetUserResponseModel;
 
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static specs.CreateUserSpec.*;
+import static specs.UserSpec.createRequestSpec;
+import static specs.UserSpec.defaultLoggingSpec;
 
 public class RegisterApi {
     public CreateUserResponseModel postRequest(CreateUserModel request) {
@@ -18,17 +17,9 @@ public class RegisterApi {
                         .when()
                         .post("/register")
                         .then()
-                        .spec(successfulUserResponseSpec)
+                        .spec(defaultLoggingSpec)
                         .extract().as(CreateUserResponseModel.class));
         return response;
-    }
-
-    public void checkEmailAndPassword(CreateUserResponseModel response) {
-        step("Проверка создания пользователя по id, токену", () -> {
-            assertEquals(4, response.getId());
-            assertNotNull(response.getToken(), "Токен должен быть не null");
-            assertEquals(17, response.getToken().length(), "Длина токена должна быть 17 символов");
-        });
     }
 
     public CreateUserResponseModel negativeEmailPostReques(CreateUserModel request) {
@@ -38,15 +29,9 @@ public class RegisterApi {
                         .when()
                         .post("/register")
                         .then()
-                        .spec(createUserResponseSpec400)
-                        .extract().as(CreateUserResponseModel.class));
+                        .statusCode(400))
+                .extract().as(CreateUserResponseModel.class);
         return response;
-    }
-
-    public void checkNegativeEmail(CreateUserResponseModel response) {
-        step("Проверка ошибки при создании пользователя", () -> {
-            assertEquals("Missing password", response.getError());
-        });
     }
 
     public GetUserResponseModel getIdUser() {
@@ -55,15 +40,9 @@ public class RegisterApi {
                         .when()
                         .get("/users/4")
                         .then()
-                        .spec(successfulUserResponseSpec)
+                        .spec(defaultLoggingSpec)
                         .extract().as(GetUserResponseModel.class));
         return response;
-    }
-
-    public void checkIdUser(GetUserResponseModel response) {
-        step("Проверка id пользователя", () -> {
-            assertEquals(String.valueOf(4), response.getData().getId(), "ID пользователя должен совпадать");
-        });
     }
 }
 
