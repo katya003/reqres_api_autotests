@@ -3,7 +3,7 @@
 <img src="images/reqres.png" width="900">
 
 ## Содержание
-
+* <a href="#tools">Технологии и инструменты</a>
 * <a href="#tests">Тест-кейсы</a>
 * <a href="#autotest">Запуск автотестов</a>
 * <a href="#jenkins">Сборка Jenkins</a>
@@ -12,6 +12,26 @@
 * <a href="#testops">Интеграция с Allure TestOps</a>
 * <a href="#telegramBot">Уведомления в Telegram bot</a>
 
+---
+
+<a id="tools"></a>
+## <a name="Технологии и инструменты">**Технологии и инструменты**</a>
+
+- Используемый стек:
+    - <code>Java</code> - автотесты написаны на Java
+    - <code>Gradle</code> - инструмент автоматизации сборки
+    - <code>JUnit 5</code> - фреймворк для выполнения автотестов
+    - <code>Rest Assured</code> - фреймворк для тестирования REST-API
+
+- Используемая инфраструктура:
+    - <code>Github</code> - хранение кода
+    - <code>Jenkins</code> - CI/CD для запуска тестов удаленно
+    - <code>Allure</code> - визуализация результатов тестирования
+    - <code>Telegram Bot</code> - инструмент для отправки результатов тестирования
+
+- Интеграции:
+    - <code>Allure TestOps</code> - тест менеджмент система
+ 
 ---
 
 <a id="tests"></a>
