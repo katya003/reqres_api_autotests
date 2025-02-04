@@ -17,6 +17,15 @@
 <a id="tools"></a>
 ## <a name="Технологии и инструменты">**Технологии и инструменты**</a>
 
+<p align="center">
+<a href="https://www.java.com/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="45" height="45" alt="Java"/></a>
+<a href="https://www.jetbrains.com/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" width="45" height="45" alt="Java"/></a>                                   
+<a href="https://gradle.org/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gradle/gradle-original.svg" width="45" height="45" alt="Java"/></a>                                     
+<a href="https://junit.org/junit5/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/junit/junit-original.svg" width="45" height="45" alt="Java"/></a>    
+<a href="https://github.com/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" width="45" height="45" alt="Java"/></a>   
+<a href="https://www.jenkins.io/"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" width="45" height="45" alt="Java"/></a>
+
+
 - Используемый стек:
     - <code>Java</code> - автотесты написаны на Java
     - <code>Gradle</code> - инструмент автоматизации сборки
@@ -52,7 +61,7 @@ API:
  ---
 
  <a id="autotest"></a>
-## <a name="Запуск автотестов">**Запуск автотестов**</a>
+## <a name="Запуск автотестов" style="color:black"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" width="20" height="20">**Запуск автотестов**</a>
 
 ### Запуск тестов из терминала
 
@@ -63,7 +72,7 @@ API:
 ---
 
 <a id="jenkins"></a>
-## <a name="Сборка Jenkins:">**Сборка Jenkins:**</a>
+## <a name="Сборка Jenkins:" style="color:black"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" width="20" height="20">**Сборка Jenkins:**</a>
 
 Тесты запускаются через [Jenkins](https://jenkins.autotests.cloud/job/reqres_api_autotests/)  
 Для запуска тестов необходимо нажать на кнопку "Build". Появится прогресс бар с номером сборки тестов. 
